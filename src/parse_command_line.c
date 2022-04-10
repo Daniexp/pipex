@@ -1,18 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   parse_command_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 17:36:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/10 18:55:50 by dexposit         ###   ########.fr       */
+/*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
+/*   Updated: 2022/04/10 18:56:07 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
-# include "../src/libft/libft.h"
-# include <fcntl.h>
-
-#endif
+#include "../inc/pipex.h"

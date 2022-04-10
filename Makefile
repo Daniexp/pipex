@@ -1,12 +1,12 @@
-NAME	= pipex
-CC	= gcc
-RM	= rm -f
-FLAGS	= -Wall -Werror -Wextra -I.
-DLIB	= ./src/libft/
-NLIB	= libft.a
-DSRC	= ./src/
-SRC 	= pipex.c
-OBJ 	= $(DSRC)$(SRC:.c=.o)
+NAME	= 	pipex
+CC		= 	gcc
+RM		= 	rm -f
+FLAGS	= 	-Wall -Werror -Wextra -I.
+DLIB	= 	./src/libft/
+NLIB	= 	libft.a
+SRC 	= 	pipex.c parse_command_line.c
+ASRC	=	$(addprefix ./src/,$(SRC))
+OBJ 	=	$(ASRC:.c=.o)
 
 all 	:	$(NAME)
 
