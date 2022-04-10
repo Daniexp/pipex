@@ -15,9 +15,9 @@ $(NAME)	:	$(OBJ)
 			@$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(OBJ)
 clean	:
 			@make clean -C $(DLIB)
-			@$(RM) $(OBJS)
+			@$(RM) $(OBJ)
 fclean	:	clean
-			@make clean -C $(DLIB)
+			@make fclean -C $(DLIB)
 			@$(RM) $(NAME)
 re	:	fclean $(NAME)
 
