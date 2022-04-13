@@ -4,7 +4,7 @@ RM		= 	rm -f
 FLAGS	= 	-Wall -Werror -Wextra -I.
 DLIB	= 	./src/libft/
 NLIB	= 	libft.a
-SRC 	= 	pipex.c parse_command_line.c
+SRC 	= 	pipex.c parse_command_line.c pipex_utils.c
 ASRC	=	$(addprefix ./src/,$(SRC))
 OBJ 	=	$(ASRC:.c=.o)
 

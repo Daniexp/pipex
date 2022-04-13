@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/12 18:36:46 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:04:11 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,28 @@
 
 int	main(int argc, char **argv)
 {
-	pid_t	pid;
+	t_var	var;
 
-	if (argc == 5)
-		parse_command_line(argc, argv);
-	else
-		perror("./pipex infile command1 command2 outfile\n");
-	pid = fork();
-	if (!pid)
-		printf("Soy el hijo (%d, hijo de %d)\n", getpid(), getppid());
-	else
-		printf("Soy el padre (%d, hijo de %d)\n", getpid(), getppid());
+	if(parse_command_line(argc, argv) < 0)
+		return (0);
+	initialize_struct_pipe(argv, &var);
+	//pipex(&var);
 }
+
+void	pipex(t_var *var)
+{
+	t_pipe pip;
+
+	printf("llega");
+	pipe(pip.end);
+	printf("llega");
+	pip.id = fork();
+	printf("llega");
+	if (pip.id < 0)
+		return (perror("It wasn't possible to do fork."), exit(EXIT_FAILURE));
+	if (!pip.id)
+		printf("EStamos en el proceso hijo que creamos con fork");
+	else
+		printf("EStamos en el procesa padre");
+}
+
