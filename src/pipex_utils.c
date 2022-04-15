@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/14 17:47:33 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/15 17:28:27 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,21 @@ void	initialize_struct_pipe(char **arg, t_var *res)
 //	res.fd[1] = open(arg[4], O_RDWR);
 		if (res->f1 < 0 || res->f2 < 0)
 			return (perror("Check the files permissions.\n"), exit(EXIT_FAILURE));
+}
+
+char	*join_str(char *start, char *mid, char *end)
+{
+	char	*join;
+	char	*res;
+
+	if (start == 0 || mid == 0 | end == 0)
+		return (NULL);
+	join  = ft_strjoin(start, mid);
+	if (!join)
+		perror("fail join start to mid");
+	res = ft_strjoin(join, end);
+	if (!res)
+		perror("fail join join to mid");
+	free(join);
+	return (res);
 }

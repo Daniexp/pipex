@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/14 20:08:50 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:59:14 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,23 @@ int	check_file(char *str, char md)
 	return (res);
 }
 
-char	*take_cmd_path_of_env(char const **envp)
+char	**take_cmd_path_of_env(char const **envp)
 {
 	char	*paths;
 	char	**split_paths;
 
-	/*while (*envp)
-	{
-		//printf("%s", *envp++);
-		if (!ft_strncmp("PATH", *envp, 4))
-			printf("%s", *envp);
-		envp++;
-	}*/
 	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
 	paths = ft_strchr(*envp, '/');
 	split_paths = ft_split(paths, ':');
-	char **aux;
+	if (!split_paths)
+		return (perror("Error in envp PATH\n"), exit(1), NULL);
+	return (split_paths);
+/*	char **aux;
 	aux = split_paths;
 	while (*aux)
-		printf("%s", *aux++);
+		printf("%s\n", *aux++);
 	free(split_paths);
 	printf("\n");
-	return ("finish");
+	return (0);*/
 }
