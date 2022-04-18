@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/15 16:59:14 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/18 15:49:12 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,4 @@ char	**take_cmd_path_of_env(char const **envp)
 	if (!split_paths)
 		return (perror("Error in envp PATH\n"), exit(1), NULL);
 	return (split_paths);
-/*	char **aux;
-	aux = split_paths;
-	while (*aux)
-		printf("%s\n", *aux++);
-	free(split_paths);
-	printf("\n");
-	return (0);*/
 }

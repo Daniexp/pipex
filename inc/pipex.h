@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:36:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/15 16:44:28 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/18 15:24:11 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*join_str(char *start, char *mid, char *end);
 /*		pipex.c					*/
 void	pipex(t_var *arg, char **envp);
 void	child_process(int fd, char *cmd, t_pipe *pip, char **envp);
-void	parent_process(int fd, char *cmd, t_pipe *pip, char **envp);
+void	parent_process(int fd, char *cmd, t_pipe *pip, char **envp, t_var *var);
 void	exec_cmd(char *cmd, char **envp);
 
 #endif
