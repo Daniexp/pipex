@@ -1,26 +1,37 @@
 NAME	= 	pipex
+BNM		=	.
 CC		= 	gcc
 RM		= 	rm -f
 FLAGS	= 	-Wall -Werror -Wextra -I.
 DLIB	= 	./src/libft/
 NLIB	= 	libft.a
 SRC 	= 	pipex.c parse_command_line.c pipex_utils.c
+BSRC	=	bonus.c bonus_utils.c
 ASRC	=	$(addprefix ./src/,$(SRC))
+BSR		=	$(addprefix ./src/bonus/,$(BSRC))
 OBJ 	=	$(ASRC:.c=.o)
+BOBJ	=	$(BSR:.c=.o)
 
 all 	:	$(NAME)
 
 $(NAME)	:	$(OBJ)
 			@make bonus -C $(DLIB)
 			@$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(OBJ)
+
 clean	:
 			@make clean -C $(DLIB)
-			@$(RM) $(OBJ)
+			@$(RM) $(OBJ) $(BOBJ)
+
 fclean	:	clean
 			@make fclean -C $(DLIB)
 			@$(RM) $(NAME)
+
+bonus	:	$(BNM)
+	
+$(BNM)	:	$(BOBJ)
+			@make bonus -C $(DLIB)
+			$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(BOBJ)
+
 re	:	fclean $(NAME)
 
-bonus	:
-
-.PHONY	:	all clean fclean re bonus
+.PHONY	:	all clean fclean re bonus .

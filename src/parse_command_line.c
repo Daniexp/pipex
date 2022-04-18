@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/18 15:49:12 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/18 20:12:48 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	parse_command_line(int argv, char **arg)
 	if (argv != 5)
 		return (perror("./pipex infile command command outfile\n"), -1);
 	res = check_file(arg[1], F_OK);
-	if (res >= 0)
-		res = check_file(arg[argv - 1], F_OK);
+//	if (res >= 0)
+//		res = check_file(arg[argv - 1], F_OK);
 	return (res);
 }
 
@@ -33,7 +33,7 @@ int	check_file(char *str, char md)
 	if (res < 0)
 	{
 		perror("At least one file doesn't exists.\n");
-		//exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	return (res);
 }
