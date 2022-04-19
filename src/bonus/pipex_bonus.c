@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/19 12:15:17 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/19 12:22:31 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 	padre -> ejecuta segundo comm desde el pipe a outfile
 	BONUS
 	hijo ->	cmd1 cmd2 cmd3 si existe un cmd entre el ultimo y el que ejecutamos,  crea un proceso hijo y leera de el pipe al pipe.
-	si no existe ese cmd en medio pues ejecutara el cmd como en la pipex original
+	si no existe ese cmd en medio pues ejecutara el cmd como sin bonus.
 	Tenemos dos partes diferenciadas heredoc y multiples cmd.
 	1- Multiples comandos.
 	2- Heredoc y << >>.
