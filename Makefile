@@ -16,7 +16,7 @@ all 	:	$(NAME)
 
 $(NAME)	:	$(OBJ)
 			@make bonus -C $(DLIB)
-			@$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(OBJ)
+			@$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(OBJ) ./src/libft/*.o
 
 clean	:
 			@make clean -C $(DLIB)

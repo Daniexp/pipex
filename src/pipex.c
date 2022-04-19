@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/18 20:11:57 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/19 10:37:14 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 
 void	pipex(t_var *arg, char **envp)
 {
-	t_pipe pip;
+	t_pipe	pip;
 
 	pipe(pip.end);
 	pip.id = fork();
@@ -33,18 +33,18 @@ void	pipex(t_var *arg, char **envp)
 	if (!pip.id)
 		child_process(arg->f1, arg->cmd1, &pip, envp);
 	else
-		parent_process(arg->f2, arg->cmd2, &pip, envp, arg);
+		parent_process(arg->f2, arg->cmd2, &pip, envp);
 }
 
+/*if (dup2(pip->end[1], 1) < 0)
+return(perror("Couldn't dup child stdout.\n"), exit(EXIT_FAILURE));
+if (close(pip->end[0]) != 0)
+return(perror("Couldn't close read extreme of the pipe.\n"), exit(EXIT_FAILURE));
+	*/
 void	child_process(int fd, char *cmd, t_pipe *pip, char **envp)
 {
 	if (dup2(fd, 0) < 0)
-		return(perror("Couldn't dup child stdin.\n"), exit(EXIT_FAILURE)); 
-	/*if (dup2(pip->end[1], 1) < 0)
-		return(perror("Couldn't dup child stdout.\n"), exit(EXIT_FAILURE));
-	if (close(pip->end[0]) != 0)
-		return(perror("Couldn't close read extreme of the pipe.\n"), exit(EXIT_FAILURE));
-	*/
+		return (perror("Couldn't dup child stdin.\n"), exit(EXIT_FAILURE));
 	dup2(pip->end[1], 1);
 	close(pip->end[0]);
 	close(fd);
@@ -54,8 +54,6 @@ void	child_process(int fd, char *cmd, t_pipe *pip, char **envp)
 	exit(EXIT_FAILURE);
 }
 
-void	parent_process(int fd, char *cmd, t_pipe *pip, char **envp, t_var *var)
-{
 	//int	status;
 
 	//waitpid(pip->id, &status, 0);
@@ -66,6 +64,8 @@ void	parent_process(int fd, char *cmd, t_pipe *pip, char **envp, t_var *var)
 	if (close(pip->end[1] != 0))
 		return(perror("Error: can't close write pipe side.\n"), exit(EXIT_FAILURE));
 	*/
+void	parent_process(int fd, char *cmd, t_pipe *pip, char **envp)
+{
 	dup2(pip->end[0], 0);
 	dup2(fd, 1);
 	close(pip->end[1]);
@@ -90,7 +90,6 @@ void	exec_cmd(char *cmd, char **envp)
 	{
 		path_cmd = join_str(env_path[i], "/", split_cmd[0]);
 		execve(path_cmd, split_cmd, envp);
-	//	perror("No se pudo execve");
 		free(path_cmd);
 	}
 	if (!env_path[i])
