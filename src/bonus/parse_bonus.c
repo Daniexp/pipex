@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_command_line.c                               :+:      :+:    :+:   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/19 10:57:25 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/19 11:57:16 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex_bonus.h"
 
 int	parse_command_line(int argv, char **arg)
 {
