@@ -6,12 +6,32 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/19 11:57:22 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/19 12:15:17 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/pipex_bonus.h"
 
+/*
+	CAMBIOS A EFECTUAR PARA REALIZAR BONUS
+	Lo primero es que si infile es heredocs tenemos que leer
+	de stdin es decir de la pantalla hasta leer >heredoc o similar
+	revisar subject bonus.
+	si es sel caso usaramos las asignacions dobles >> << por lo que
+	tendremos que identificar cual puso y si son estas pues escribiremos
+	al final de lo que este en el outfile
+	En otro caso tendremos el pipex inicial pero debe funcionar para x
+	commandos no para 2 exclusivamente.
+	para ello ahora mismo:
+	hijo -> ejecuta primer com desde infile a pipe
+	padre -> ejecuta segundo comm desde el pipe a outfile
+	BONUS
+	hijo ->	cmd1 cmd2 cmd3 si existe un cmd entre el ultimo y el que ejecutamos,  crea un proceso hijo y leera de el pipe al pipe.
+	si no existe ese cmd en medio pues ejecutara el cmd como en la pipex original
+	Tenemos dos partes diferenciadas heredoc y multiples cmd.
+	1- Multiples comandos.
+	2- Heredoc y << >>.
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	t_var	var;
