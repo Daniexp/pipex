@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/19 11:57:16 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/19 16:57:52 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	parse_command_line(int argv, char **arg)
 	int	res;
 
 	res = 0;
-	if (argv != 5)
-		return (perror("./pipex infile command command outfile\n"), -1);
+	if (argv <= 4)
+		return (perror("./pipex infile cmd1 ... last_cmd outfile\n"), -1);
 	res = check_file(arg[1], F_OK);
 	return (res);
 }

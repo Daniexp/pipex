@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/19 12:22:31 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/19 17:52:42 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (parse_command_line(argc, argv) < 0)
 		return (0);
-	initialize_struct_pipe(argv, &var);
+	initialize_struct_pipe(argc, argv, &var);
 	pipex(&var, envp);
 }
 
@@ -51,9 +51,11 @@ void	pipex(t_var *arg, char **envp)
 	if (pip.id < 0)
 		return (perror("It wasn't possible to do fork.\n"), exit(EXIT_FAILURE));
 	if (!pip.id)
-		child_process(arg->f1, arg->cmd1, &pip, envp);
+		printf("proceso hijo\n");
+		//child_process(arg->f1, arg->cmd1, &pip, envp);
 	else
-		parent_process(arg->f2, arg->cmd2, &pip, envp);
+		printf("proceso padre\n");
+		//parent_process(arg->f2, arg->cmd2, &pip, envp);
 }
 
 void	child_process(int fd, char *cmd, t_pipe *pip, char **envp)
