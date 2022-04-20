@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/19 10:37:14 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/20 14:41:04 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	child_process(int fd, char *cmd, t_pipe *pip, char **envp)
 	dup2(pip->end[1], 1);
 	close(pip->end[0]);
 	close(fd);
-	close(pip->end[0]);
+	close(pip->end[1]);
 	exec_cmd(cmd, envp);
 	perror("No ha sido posible ejecutar el commando");
 	exit(EXIT_FAILURE);

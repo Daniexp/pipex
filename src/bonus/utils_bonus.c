@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/19 17:32:52 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/20 14:39:06 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	initialize_struct_pipe(int argc, char **arg, t_var *res)
 {
 	//initialize_cmd char ** function to do....
 	res->cmd = save_cmds(argc, arg);
+	res->nmb_cmd = argc - 3;
 	res->fin = open(arg[1], O_RDONLY);
 	res->fout = open(arg[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (res->fin < 0 || res->fout < 0)
@@ -57,4 +58,19 @@ char	*join_str(char *start, char *mid, char *end)
 		perror("fail join join to mid");
 	free(join);
 	return (res);
+}
+
+void	change_in_out_cmd(int fin, int	fout)
+{
+	if (dup2(fin, 0) < 0)
+		return (perror("Fails the dup to cmd in\n"), exit(EXIT_FAILURE));
+	if (dup2(fout, 1) < 0)
+		return (perror("Fails the dup to cmd in\n"), exit(EXIT_FAILURE));
+
+}
+
+void	close_unused_fd(int f1, int f2, int f3, int f4)
+{
+	if (close(f1) < 0 || close(f2) < 0  || close(f3) < 0 || close(f4) < 0)
+		return(perror("Fail: can't close a fd \n"), exit(EXIT_FAILURE));
 }
