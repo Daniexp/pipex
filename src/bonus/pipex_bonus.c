@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/20 17:31:29 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/20 22:35:24 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,112 +35,48 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_var	var;
-	t_pipe	pip;
 
 	if (parse_command_line(argc, argv) < 0)
 		return (0);
 	initialize_struct_pipe(argc, argv, &var);
-	pipe(pip.end);
-	pipex(&var, envp, &pip);
+	pipex(&var, envp, 0);
 }
 
-void	pipex(t_var *arg, char **envp, t_pipe *pip)
+void	pipex(t_var *arg, char **envp, t_pipe *pipant)
 {
 	static int	calls=0;
 	int			cnt;
-	pid_t		id;
+	t_pipe		pipsig;
 //	int			status;
 	
-	calls++;
-	cnt  = arg->nmb_cmd - calls;
-	//cnt--;
-	printf("cnt es: %d\n", cnt);
+	//calls++;
+	cnt  = arg->nmb_cmd - ++calls;
+	pipe(pipsig.end);
 	if (cnt == 0)
-	{
-		do_process(arg, envp, pip, cnt);
-		//printf("Aquí realizaremos el commando de infile a pipe\n");
-		//exit(EXIT_FAILURE);
-	}
+		change_in_out_cmd(&(arg->fin), &(pipant->end[1]));
 	else 
 	{
-		//Crear el proceso y llamar con siguiente commando
-		id = fork();
-		if (id < 0)
+		pipsig.id = fork();
+		if (pipsig.id < 0)
 			return (perror("fork fail... \n"), exit(EXIT_FAILURE));
-		if (id == 0)
-			pipex(arg, envp, pip);
+		if (pipsig.id == 0)
+			pipex(arg, envp, &pipsig);
 		else
 		{
-		//	waitpid(id, &status, 0);
+//			waitpid(pipsig.id, &status, 0);
 			if (cnt == arg->nmb_cmd - 1)
-				do_process(arg, envp, pip, cnt);
-				//printf("Aquí ejecutaremos el ultimo commando a outfile\n");
+				change_in_out_cmd(&(pipsig.end[0]), &(arg->fout));
 			else
-				do_process(arg, envp, pip, cnt);
-				//printf("Aqui ejecutaremos el resto de procesos de pipe a pipe\n");
-			//exit(EXIT_FAILURE);
+				change_in_out_cmd(&(pipsig.end[0]), &(pipant->end[1]));
 		}
 	}
-	/*if (!pip.id)
-		printf("proceso hijo\n");
-		//child_process(arg->f1, arg->cmd1, &pip, envp);
-	else
-		printf("proceso padre\n");
-		//parent_process(arg->f2, arg->cmd2, &pip, envp);
-*/}
-void	do_process(t_var *var, char **envp, t_pipe *pip,  int n)
-{
-	//depende de que proceso ejecutemos tendremos unos in out y unos
-	//fd distintos para cerrar.
-	//cambiar in out.
-	//close fd sin usar del proceso.
-	//ejecutar commmando.
-	if (n == 0)
+	close_unused_fd(arg->fin, arg->fout, pipsig.end[0], pipsig.end[1]);
+	if (pipant != 0)
 	{
-		change_in_out_cmd(&(var->fin), &(pip->end[1]));
-		//close_unused_fd(var->fin, pip->end[0], pip->end[1]);
+		close(pipant->end[0]);
+		close(pipant->end[1]);
 	}
-	else if (n == var->nmb_cmd - 1)
-	{
-		change_in_out_cmd(&(pip->end[0]), &(var->fout));
-		//close_unused_fd();
-	}
-	else
-	{
-		change_in_out_cmd(&(pip->end[0]), &(pip->end[1]));
-		//close_unused_fd();
-	}
-	//revisar si podemos cerrar aqui todo.
-	close_unused_fd(var->fin, var->fout, pip->end[0], pip->end[1]);
-	exec_cmd(var->cmd[n], envp);
-}
-
-void	child_process(int fd, char *cmd, t_pipe *pip, char **envp)
-{
-	if (dup2(fd, 0) < 0)
-		return (perror("Couldn't dup child stdin.\n"), exit(EXIT_FAILURE));
-	dup2(pip->end[1], 1);
-	close(pip->end[0]);
-	close(fd);
-	close(pip->end[0]);
-	exec_cmd(cmd, envp);
-	perror("No ha sido posible ejecutar el commando");
-	exit(EXIT_FAILURE);
-}
-
-void	parent_process(int fd, char *cmd, t_pipe *pip, char **envp)
-{
-	dup2(pip->end[0], 0);
-	dup2(fd, 1);
-
-	close(pip->end[1]);
-	close(pip->end[0]);
-	close(fd);
-
-	exec_cmd(cmd, envp);
-
-	perror("No ha sido posible ejecutar el commando");
-	exit(EXIT_FAILURE);
+	exec_cmd(arg->cmd[cnt], envp);
 }
 
 void	exec_cmd(char *cmd, char **envp)
