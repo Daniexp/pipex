@@ -6,12 +6,16 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/20 23:54:02 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/21 00:37:59 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/pipex_bonus.h"
 
+/*
+	si heredoc hay que saltar el mitador en la llamada de save commands y no se
+comprueba si existe fin ya que se leera de la pantalla
+*/
 void	initialize_struct_pipe(int argc, char **arg, t_var *res)
 {
 	res->cmd = save_cmds(argc, arg);
