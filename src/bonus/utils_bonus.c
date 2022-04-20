@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/20 17:19:41 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/20 23:54:02 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	initialize_struct_pipe(int argc, char **arg, t_var *res)
 {
-	//initialize_cmd char ** function to do....
 	res->cmd = save_cmds(argc, arg);
 	res->nmb_cmd = argc - 3;
 	res->fin = open(arg[1], O_RDONLY);
@@ -30,15 +29,11 @@ char	**save_cmds(int argc, char **argv)
 	int		x_cmd;
 	char	**res;
 
-	res  = ft_calloc(argc - 2, sizeof(char *));
+	res = ft_calloc(argc - 2, sizeof(char *));
 	x_arg = 1;
 	x_cmd = 0;
 	while (argv[++x_arg] && x_arg < argc - 1)
-	{
-		//printf("arg %d valor %s\n", x_arg, argv[x_arg]);
 		res[x_cmd++] = ft_substr(argv[x_arg], 0, ft_strlen(argv[x_arg]));
-//		printf("arg %d valor %s\n", x_cmd - 1, res[x_cmd - 1]);
-	}
 	res[x_cmd] = 0;
 	return (res);
 }
@@ -66,11 +61,10 @@ void	change_in_out_cmd(int *fin, int	*fout)
 		return (perror("Fails the dup to cmd in\n"), exit(EXIT_FAILURE));
 	if (dup2(*fout, 1) < 0)
 		return (perror("Fails the dup to cmd out\n"), exit(EXIT_FAILURE));
-
 }
 
 void	close_unused_fd(int f1, int f2, int f3, int f4)
 {
-	if (close(f1) < 0 || close(f2) < 0  || close(f3) < 0 || close(f4) < 0)
-		return(perror("Fail: can't close a fd \n"), exit(EXIT_FAILURE));
+	if (close(f1) < 0 || close(f2) < 0 || close(f3) < 0 || close(f4) < 0)
+		return (perror("Fail: can't close a fd \n"), exit(EXIT_FAILURE));
 }

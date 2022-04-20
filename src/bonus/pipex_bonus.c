@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/20 22:35:24 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/20 23:00:04 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 	hijo -> ejecuta primer com desde infile a pipe
 	padre -> ejecuta segundo comm desde el pipe a outfile
 	BONUS
-	hijo ->	cmd1 cmd2 cmd3 si existe un cmd entre el ultimo y el que ejecutamos,  crea un proceso hijo y leera de el pipe al pipe.
+	hijo ->	cmd1 cmd2 cmd3 si existe un cmd entre el ultimo y el que ejecutamos
+,  crea un proceso hijo y leera de el pipe al pipe.
 	si no existe ese cmd en medio pues ejecutara el cmd como sin bonus.
 	Tenemos dos partes diferenciadas heredoc y multiples cmd.
 	1- Multiples comandos.
@@ -44,17 +45,15 @@ int	main(int argc, char **argv, char **envp)
 
 void	pipex(t_var *arg, char **envp, t_pipe *pipant)
 {
-	static int	calls=0;
+	static int	calls = 0;
 	int			cnt;
 	t_pipe		pipsig;
-//	int			status;
-	
-	//calls++;
-	cnt  = arg->nmb_cmd - ++calls;
+
+	cnt = arg->nmb_cmd - ++calls;
 	pipe(pipsig.end);
 	if (cnt == 0)
 		change_in_out_cmd(&(arg->fin), &(pipant->end[1]));
-	else 
+	else
 	{
 		pipsig.id = fork();
 		if (pipsig.id < 0)
@@ -63,7 +62,6 @@ void	pipex(t_var *arg, char **envp, t_pipe *pipant)
 			pipex(arg, envp, &pipsig);
 		else
 		{
-//			waitpid(pipsig.id, &status, 0);
 			if (cnt == arg->nmb_cmd - 1)
 				change_in_out_cmd(&(pipsig.end[0]), &(arg->fout));
 			else
