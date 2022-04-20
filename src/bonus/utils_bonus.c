@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/20 14:39:06 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:19:41 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ char	*join_str(char *start, char *mid, char *end)
 	return (res);
 }
 
-void	change_in_out_cmd(int fin, int	fout)
+void	change_in_out_cmd(int *fin, int	*fout)
 {
-	if (dup2(fin, 0) < 0)
+	if (dup2(*fin, 0) < 0)
 		return (perror("Fails the dup to cmd in\n"), exit(EXIT_FAILURE));
-	if (dup2(fout, 1) < 0)
-		return (perror("Fails the dup to cmd in\n"), exit(EXIT_FAILURE));
+	if (dup2(*fout, 1) < 0)
+		return (perror("Fails the dup to cmd out\n"), exit(EXIT_FAILURE));
 
 }
 
