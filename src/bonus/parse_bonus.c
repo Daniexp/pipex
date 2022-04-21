@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/21 20:03:54 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/21 23:33:20 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,10 @@ void	check_heredoc(int argc, char **argv, t_var *arg)
 			return (perror("./pipex here\\_doc LIMIT cmd cmd1 file\n"), exit(EXIT_FAILURE));
 		arg->nmb_cmd = argc - 4;
 		arg->cmd = save_cmds(argc - 1, argv + 1);
-		//FALTA POR AÑADIR FIN Y FOUT
 		create_auxfin(arg);
 		arg->fout = open(argv[argc - 1], O_APPEND | O_CREAT | O_WRONLY, 0644);
 		if (arg->fout < 0)
 			return(perror("fail to open fout\n"), exit(EXIT_FAILURE));
-	/*	while (*arg->cmd)
-		{
-			printf("cmd: %s\n ",arg->cmd[0]);
-			arg->cmd++;
-		}
-		printf("numero de comandos: %d\n", arg->nmb_cmd);*/
 	}
 	else
 	{
@@ -85,16 +78,7 @@ void	create_auxfin(t_var *var)
 	t_pipe	pip;
 
 	pipe(pip.end);
-/*	fd = open("./.auxfile", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-		return (perror("We can't open aux file\n"), exit(EXIT_FAILURE));
-	//write(fd, "", 1);*/
 	read = get_next_line(0);
-	/*ft_putstr_fd(read, fd);
-	close(fd);
-	fd = open(".auxfile", O_APPEND | O_RDWR);
-	if (fd < 0)
-		return (perror("We can't open aux file to append\n"), exit(EXIT_FAILURE));*/
 	while (ft_strlen(var->lmt) != ft_strlen(read) - 1 || ft_strncmp(read, var->lmt, ft_strlen(var->lmt)))
 	{
 		ft_putstr_fd(read, pip.end[1]);
@@ -105,8 +89,4 @@ void	create_auxfin(t_var *var)
 	var->fin = pip.end[0];
 	if (close(pip.end[1]) < 0)
 		perror("no ha sido posible cerrar este lado del pipe");
-	/*close(fd);
-	var->fin = open(".auxfile", O_RDONLY);
-	if (var->fin < 0)
-		return (perror("We can't open infile to read\n"), exit(EXIT_FAILURE));
-*/}
+}

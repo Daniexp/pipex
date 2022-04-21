@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/21 18:54:43 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/21 23:22:58 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	initialize_struct_pipe(int argc, char **arg, t_var *res)
 	res->cmd = save_cmds(argc, arg);
 	res->nmb_cmd = argc - 3;
 	res->fin = open(arg[1], O_RDONLY);
-	//res->fout = open(arg[argc - 1], O_CREAT | O_APPEND | O_WRONLY, 0644);
 	res->fout = open(arg[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (res->fin < 0 || res->fout < 0)
 		return (perror("Check the files permits.\n"), exit(EXIT_FAILURE));

@@ -30,7 +30,7 @@ bonus	:	$(BNM)
 	
 $(BNM)	:	$(BOBJ)
 			@make bonus -C $(DLIB)
-			$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(BOBJ) ./src/libft/*.o
+			$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(BOBJ) ./src/libft/*.o ./src/libft/gnl/*.o
 
 re	:	fclean $(NAME)
 
