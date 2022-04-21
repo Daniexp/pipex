@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:36:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/20 21:39:08 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:16:22 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ typedef struct s_pipe
 }	t_pipe;
 /*		FUNCTIONS PROTOTYPES	*/
 /*		parse_command_line.c	*/
+void	check_heredoc(int argc, char **argv, t_var *arg);
 int		parse_command_line(int argv, char **arg);
 int		check_file(char *str, char md);
 char	**take_cmd_path_of_env(char const **envp);
+void	create_auxfin(t_var *var);
 /*		pipex_utils.c			*/
 void	initialize_struct_pipe(int argc, char **arg, t_var *res);
 char	**save_cmds(int argc, char **argv);

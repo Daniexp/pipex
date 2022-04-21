@@ -1,5 +1,6 @@
 *.o
 .*.swp
+.auxfile
 pipex
 pipex-tester
 pipex_tester_42

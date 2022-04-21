@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/21 00:40:36 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:41:52 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_var	var;
 
-	if (parse_command_line(argc, argv) < 0)
-		return (0);
-	initialize_struct_pipe(argc, argv, &var);
+//	if (parse_command_line(argc, argv) < 0)
+//		return (0);
+//	initialize_struct_pipe(argc, argv, &var);
+	check_heredoc(argc, argv, &var);
 	pipex(&var, envp, 0);
 }
 
