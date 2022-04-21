@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/21 19:05:24 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/21 20:03:54 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,31 @@ void	create_auxfin(t_var *var)
 	int		res;
 	int		fd;
 	char	*read;
+	t_pipe	pip;
 
-	fd = open("./.auxfile", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	pipe(pip.end);
+/*	fd = open("./.auxfile", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (perror("We can't open aux file\n"), exit(EXIT_FAILURE));
-	//write(fd, "", 1);
+	//write(fd, "", 1);*/
 	read = get_next_line(0);
-	ft_putstr_fd(read, fd);
+	/*ft_putstr_fd(read, fd);
 	close(fd);
 	fd = open(".auxfile", O_APPEND | O_RDWR);
 	if (fd < 0)
-		return (perror("We can't open aux file to append\n"), exit(EXIT_FAILURE));
-	while (ft_strncmp(read, var->lmt, ft_strlen(var->lmt)))
+		return (perror("We can't open aux file to append\n"), exit(EXIT_FAILURE));*/
+	while (ft_strlen(var->lmt) != ft_strlen(read) - 1 || ft_strncmp(read, var->lmt, ft_strlen(var->lmt)))
 	{
-		ft_putstr_fd(read, fd);
+		ft_putstr_fd(read, pip.end[1]);
 		free(read);
 		read = get_next_line(0);
 	}
 	free(read);
-	close(fd);
+	var->fin = pip.end[0];
+	if (close(pip.end[1]) < 0)
+		perror("no ha sido posible cerrar este lado del pipe");
+	/*close(fd);
 	var->fin = open(".auxfile", O_RDONLY);
 	if (var->fin < 0)
 		return (perror("We can't open infile to read\n"), exit(EXIT_FAILURE));
-}
+*/}
