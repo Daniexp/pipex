@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/22 11:45:53 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:15:52 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	pipex(t_var *arg, char **envp, t_pipe *pipant)
 	}
 	close_unused(arg, &pipsig, pipant);
 	exec_cmd(arg->cmd[cnt], envp);
+	free_doublestr(arg->cmd);
 }
 
 /*	close_unused_fd(arg->fin, arg->fout, pipsig.end[0], pipsig.end[1]);
@@ -73,7 +74,7 @@ void	pipex(t_var *arg, char **envp, t_pipe *pipant)
 		close(pipant->end[0]);
 		close(pipant->end[1]);
 	}*/
-int	close_unused(t_var *var, t_pipe *pip1, t_pipe *pip2)
+void	close_unused(t_var *var, t_pipe *pip1, t_pipe *pip2)
 {
 	if (pip2 != 0)
 	{
@@ -99,12 +100,26 @@ void	exec_cmd(char *cmd, char **envp)
 	while (env_path[++i])
 	{
 		path_cmd = join_str(env_path[i], "/", split_cmd[0]);
-		execve(path_cmd, split_cmd, envp);
-		free(path_cmd);
+		if (access(path_cmd, X_OK) == 0)
+			execve(path_cmd, split_cmd, envp);
+			free(path_cmd);
 	}
 	if (!env_path[i])
 		perror("Command not found\n");
-	free(split_cmd);
-	free(env_path);
+	free_doublestr(split_cmd);
+	free_doublestr(env_path);
 	exit(EXIT_FAILURE);
+}
+
+static void	free_doublestr(char **str)
+{
+	char	**aux;
+
+	aux = str;
+	while (*str)
+	{
+		free(*str);
+		str++;
+	}
+	free(aux);
 }
