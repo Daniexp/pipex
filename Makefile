@@ -16,7 +16,7 @@ all 	:	$(NAME)
 
 $(NAME)	:	$(OBJ)
 			@make bonus -C $(DLIB)
-			@$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(OBJ) ./src/libft/*.o
+			@$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(OBJ) #./src/libft/*.o
 
 clean	:
 			@make clean -C $(DLIB)
@@ -30,7 +30,7 @@ bonus	:	$(BNM)
 	
 $(BNM)	:	$(BOBJ)
 			@make bonus -C $(DLIB)
-			$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(BOBJ) ./src/libft/*.o ./src/libft/gnl/*.o
+			$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(BOBJ) #./src/libft/*.o ./src/libft/gnl/*.o
 
 re	:	fclean $(NAME)
 

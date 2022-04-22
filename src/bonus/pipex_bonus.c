@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/22 16:15:52 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:24:14 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	exec_cmd(char *cmd, char **envp)
 		path_cmd = join_str(env_path[i], "/", split_cmd[0]);
 		if (access(path_cmd, X_OK) == 0)
 			execve(path_cmd, split_cmd, envp);
-			free(path_cmd);
+		free(path_cmd);
 	}
 	if (!env_path[i])
 		perror("Command not found\n");
@@ -111,7 +111,7 @@ void	exec_cmd(char *cmd, char **envp)
 	exit(EXIT_FAILURE);
 }
 
-static void	free_doublestr(char **str)
+void	free_doublestr(char **str)
 {
 	char	**aux;
 

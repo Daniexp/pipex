@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:36:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/22 15:57:39 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:23:49 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	child_process(int fd, char *cmd, t_pipe *pip, char **envp);
 void	parent_process(int fd, char *cmd, t_pipe *pip, char **envp);
 void	do_process(t_var *var, char **envp, t_pipe *pip, int n);
 void	exec_cmd(char *cmd, char **envp);
-static void	free_doublestr(char **str);
+void	free_doublestr(char **str);
 
 #endif
