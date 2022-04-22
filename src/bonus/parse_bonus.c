@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/21 23:33:20 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:00:33 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ void	check_heredoc(int argc, char **argv, t_var *arg)
 {
 	if (ft_strlen(argv[1]) == 8 && !ft_strncmp(argv[1], "here_doc", 8))
 	{
-		printf("nombre arc: %s\n limitador: %s\n", argv[1], argv[2]);
-		arg->lmt = ft_substr(argv[2], 0 ,ft_strlen(argv[2]));
+	arg->lmt = ft_substr(argv[2], 0, ft_strlen(argv[2]));
 		if (argc < 6)
-			return (perror("./pipex here\\_doc LIMIT cmd cmd1 file\n"), exit(EXIT_FAILURE));
+			return (perror("./pipex here\\_doc LIMIT md cmd1 file\n"),
+				exit(EXIT_FAILURE));
 		arg->nmb_cmd = argc - 4;
 		arg->cmd = save_cmds(argc - 1, argv + 1);
 		create_auxfin(arg);
 		arg->fout = open(argv[argc - 1], O_APPEND | O_CREAT | O_WRONLY, 0644);
 		if (arg->fout < 0)
-			return(perror("fail to open fout\n"), exit(EXIT_FAILURE));
+			return (perror("fail to open fout\n"), exit(EXIT_FAILURE));
 	}
 	else
 	{
@@ -79,7 +79,8 @@ void	create_auxfin(t_var *var)
 
 	pipe(pip.end);
 	read = get_next_line(0);
-	while (ft_strlen(var->lmt) != ft_strlen(read) - 1 || ft_strncmp(read, var->lmt, ft_strlen(var->lmt)))
+	while (ft_strlen(var->lmt) != ft_strlen(read) - 1
+		|| ft_strncmp(read, var->lmt, ft_strlen(var->lmt)))
 	{
 		ft_putstr_fd(read, pip.end[1]);
 		free(read);

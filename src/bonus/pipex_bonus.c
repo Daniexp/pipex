@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/21 23:22:29 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:45:53 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,32 @@ void	pipex(t_var *arg, char **envp, t_pipe *pipant)
 			return (perror("fork fail... \n"), exit(EXIT_FAILURE));
 		if (pipsig.id == 0)
 			pipex(arg, envp, &pipsig);
+		else if (cnt == arg->nmb_cmd - 1)
+			change_in_out_cmd(&(pipsig.end[0]), &(arg->fout));
 		else
-		{
-			if (cnt == arg->nmb_cmd - 1)
-				change_in_out_cmd(&(pipsig.end[0]), &(arg->fout));
-			else
-				change_in_out_cmd(&(pipsig.end[0]), &(pipant->end[1]));
-		}
+			change_in_out_cmd(&(pipsig.end[0]), &(pipant->end[1]));
 	}
-	close_unused_fd(arg->fin, arg->fout, pipsig.end[0], pipsig.end[1]);
+	close_unused(arg, &pipsig, pipant);
+	exec_cmd(arg->cmd[cnt], envp);
+}
+
+/*	close_unused_fd(arg->fin, arg->fout, pipsig.end[0], pipsig.end[1]);
 	if (pipant != 0)
 	{
 		close(pipant->end[0]);
 		close(pipant->end[1]);
+	}*/
+int	close_unused(t_var *var, t_pipe *pip1, t_pipe *pip2)
+{
+	if (pip2 != 0)
+	{
+		close(pip2->end[0]);
+		close(pip2->end[1]);
 	}
-	exec_cmd(arg->cmd[cnt], envp);
+	close(var->fin);
+	close(var->fout);
+	close(pip1->end[0]);
+	close(pip1->end[1]);
 }
 
 void	exec_cmd(char *cmd, char **envp)
