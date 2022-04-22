@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/22 16:24:14 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/22 19:34:38 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_var	var;
 
+	if (argc == 1)
+		exit(EXIT_FAILURE);
 	check_heredoc(argc, argv, &var);
 	pipex(&var, envp, 0);
 }
@@ -66,6 +68,8 @@ void	pipex(t_var *arg, char **envp, t_pipe *pipant)
 	close_unused(arg, &pipsig, pipant);
 	exec_cmd(arg->cmd[cnt], envp);
 	free_doublestr(arg->cmd);
+//	perror("Command not found.\n");
+//	exit(EXIT_FAILURE);
 }
 
 /*	close_unused_fd(arg->fin, arg->fout, pipsig.end[0], pipsig.end[1]);
@@ -94,8 +98,11 @@ void	exec_cmd(char *cmd, char **envp)
 	char	**split_cmd;
 	int		i;
 
-	env_path = take_cmd_path_of_env((const char **) envp);
 	split_cmd = ft_split(cmd, ' ');
+	rute_absolute(envp, cmd);
+	if (*envp == NULL)
+		exit(EXIT_FAILURE);
+	env_path = take_cmd_path_of_env((const char **) envp);
 	i = -1;
 	while (env_path[++i])
 	{
@@ -104,10 +111,9 @@ void	exec_cmd(char *cmd, char **envp)
 			execve(path_cmd, split_cmd, envp);
 		free(path_cmd);
 	}
-	if (!env_path[i])
-		perror("Command not found\n");
 	free_doublestr(split_cmd);
 	free_doublestr(env_path);
+	perror("command not found");
 	exit(EXIT_FAILURE);
 }
 

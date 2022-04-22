@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/21 23:22:58 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/22 19:43:22 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,29 @@ void	change_in_out_cmd(int *fin, int	*fout)
 		return (perror("Fails the dup to cmd out\n"), exit(EXIT_FAILURE));
 }
 
-void	close_unused_fd(int f1, int f2, int f3, int f4)
+void	rute_absolute(char **envp, char *cmd)
 {
-	if (close(f1) < 0 || close(f2) < 0 || close(f3) < 0 || close(f4) < 0)
-		return (perror("Fail: can't close a fd \n"), exit(EXIT_FAILURE));
+	char	**split_cmd;
+	char	**aux;
+
+	split_cmd = ft_split(cmd, '/');
+	aux = split_cmd;
+	while (*(split_cmd + 1))
+	{
+		free(*split_cmd);
+		split_cmd++;
+	}
+	if (access(*split_cmd, X_OK))
+	{
+		execve(cmd, split_cmd, envp);
+		//perror("Is not possible to execute the rute you pass.\n");
+		//exit(EXIT_FAILURE);
+	}
+	free(*split_cmd);
+	free(aux);
+	if (*envp == NULL)
+	{
+		perror("Is not possible to execute the rute you pass.\n");
+		//exit(EXIT_FAILURE);
+	}
 }
