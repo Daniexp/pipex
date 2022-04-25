@@ -12,7 +12,7 @@ BSR		=	$(addprefix ./src/bonus/,$(BSRC))
 OBJ 	=	$(ASRC:.c=.o)
 BOBJ	=	$(BSR:.c=.o)
 
-all 	:	$(NAME)
+all 	:	$(NAME) bonus
 
 $(NAME)	:	$(OBJ)
 			@make bonus -C $(DLIB)

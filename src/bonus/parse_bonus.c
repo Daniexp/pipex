@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/22 11:00:33 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/25 14:49:20 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	check_file(char *str, char md)
 
 	res = access(str, md);
 	if (res < 0)
-		perror("Read file don't exists.\n");
+	{
+		perror(str);
+	}
 	return (res);
 }
 

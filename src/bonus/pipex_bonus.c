@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/22 19:34:38 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:21:21 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@
 	1- Multiples comandos.
 	2- Heredoc y << >>.
 */
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_var	var;
 
-	if (argc == 1)
-		exit(EXIT_FAILURE);
 	check_heredoc(argc, argv, &var);
 	pipex(&var, envp, 0);
 }
