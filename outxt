@@ -1,9 +1,12 @@
-Makefile
-PIPEX_TESTER
-inc
-intxt
-outxt
-pipex
-pipex-tester
-pipex_tester_42
-src
+total 68
+drwxrwxr-x 5 daniel daniel  4096 abr 25 22:41 .
+drwxrwxr-x 7 daniel daniel  4096 abr 25 22:35 ..
+drwxrwxr-x 9 daniel daniel  4096 abr 25 22:37 .git
+-rw-rw-r-- 1 daniel daniel    58 abr 25 22:36 .gitignore
+-rw-rw-r-- 1 daniel daniel    82 abr 25 22:35 .gitmodules
+drwxrwxr-x 2 daniel daniel  4096 abr 25 22:36 inc
+-rw-rw-r-- 1 daniel daniel     0 abr 25 22:36 intxt
+-rw-rw-r-- 1 daniel daniel   804 abr 25 22:41 Makefile
+-rw-rw-r-- 1 daniel daniel     0 abr 25 22:42 outxt
+-rwxrwxr-x 1 daniel daniel 33992 abr 25 22:41 pipex
+drwxrwxr-x 4 daniel daniel  4096 abr 25 22:38 src

@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/25 14:49:20 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:40:04 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	check_heredoc(int argc, char **argv, t_var *arg)
 
 void	create_auxfin(t_var *var)
 {
-	int		res;
-	int		fd;
 	char	*read;
 	t_pipe	pip;
 

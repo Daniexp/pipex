@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/19 10:39:00 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:38:51 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*join_str(char *start, char *mid, char *end)
 	char	*join;
 	char	*res;
 
-	if (start == 0 || mid == 0 | end == 0)
+	if (start == 0 || mid == 0 || end == 0)
 		return (NULL);
 	join = ft_strjoin(start, mid);
 	if (!join)

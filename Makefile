@@ -2,15 +2,15 @@ NAME	= 	pipex
 BNM		=	.
 CC		= 	gcc
 RM		= 	rm -f
-FLAGS	= 	-Wall -Werror -Wextra -I.
+CFLAGS	= 	-Wall -Werror -Wextra -I.
 DLIB	= 	./src/libft/
 NLIB	= 	libft.a
 SRC 	= 	pipex.c parse_command_line.c pipex_utils.c
 BSRC	=	pipex_bonus.c utils_bonus.c parse_bonus.c
 ASRC	=	$(addprefix ./src/,$(SRC))
 BSR		=	$(addprefix ./src/bonus/,$(BSRC))
-OBJ 	=	$(ASRC:.c=.o)
-BOBJ	=	$(BSR:.c=.o)
+OBJ 	=	$(ASRC:%.c=%.o)
+BOBJ	=	$(BSR:%.c=%.o)
 
 all 	:	$(NAME) bonus
 
@@ -30,7 +30,7 @@ bonus	:	$(BNM)
 	
 $(BNM)	:	$(BOBJ)
 			@make bonus -C $(DLIB)
-			$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(BOBJ) #./src/libft/*.o ./src/libft/gnl/*.o
+			$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(BOBJ) ./src/libft/*.o ./src/libft/gnl/*.o
 
 re	:	fclean $(NAME)
 

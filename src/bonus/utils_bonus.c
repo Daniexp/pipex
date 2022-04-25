@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/22 19:43:22 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:39:43 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	initialize_struct_pipe(int argc, char **arg, t_var *res)
 
 char	**save_cmds(int argc, char **argv)
 {
-	int		cmd_nmb;
 	int		x_arg;
 	int		x_cmd;
 	char	**res;
@@ -47,7 +46,7 @@ char	*join_str(char *start, char *mid, char *end)
 	char	*join;
 	char	*res;
 
-	if (start == 0 || mid == 0 | end == 0)
+	if (start == 0 || mid == 0 || end == 0)
 		return (NULL);
 	join = ft_strjoin(start, mid);
 	if (!join)
