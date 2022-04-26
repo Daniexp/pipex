@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:36:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/22 17:38:36 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/26 22:00:51 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PIPEX_BONUS_H
 
 /*	INCLUDES	*/
-# include "../src/libft/libft.h"
+# include <libft.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <string.h>

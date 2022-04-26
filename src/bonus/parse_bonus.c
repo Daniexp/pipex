@@ -6,11 +6,11 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:26:12 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/25 22:40:04 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/26 22:01:18 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/pipex_bonus.h"
+#include <pipex_bonus.h>
 
 int	parse_command_line(int argv, char **arg)
 {

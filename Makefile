@@ -1,9 +1,9 @@
 NAME	= 	pipex
-BNM		=	.
 CC		= 	gcc
 RM		= 	rm -f
-CFLAGS	= 	-Wall -Werror -Wextra -I.
-DLIB	= 	./src/libft/
+CFLAGS	= 	-Wall -Werror -Wextra -Iinc -Isrc/libft/ -Isrc/libft/gnl/
+LDFLAGS =	-L src/libft -lft
+DLIB	= 	src/libft/
 NLIB	= 	libft.a
 SRC 	= 	pipex.c parse_command_line.c pipex_utils.c
 BSRC	=	pipex_bonus.c utils_bonus.c parse_bonus.c
@@ -26,11 +26,9 @@ fclean	:	clean
 			@make fclean -C $(DLIB)
 			@$(RM) $(NAME)
 
-bonus	:	$(BNM)
-	
-$(BNM)	:	$(BOBJ)
+bonus	:	$(BOBJ)
 			@make bonus -C $(DLIB)
-			$(CC) $(FLAGS) -o $(NAME) $(DLIB)$(NLIB) $(BOBJ) ./src/libft/*.o ./src/libft/gnl/*.o
+			$(CC) $^ -o $(NAME) $(CFLAGS) $(LDFLAGS)
 
 re	:	fclean $(NAME)
 

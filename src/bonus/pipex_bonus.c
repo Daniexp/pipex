@@ -6,11 +6,11 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/25 18:21:21 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/26 22:01:39 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/pipex_bonus.h"
+#include <pipex_bonus.h>
 
 /*
 	CAMBIOS A EFECTUAR PARA REALIZAR BONUS
