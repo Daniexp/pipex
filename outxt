@@ -1,7 +1,15 @@
-total 40
- 4 drwxrwxr-x 2 daniel daniel  4096 abr 26 22:00 inc
- 4 -rw-rw-r-- 1 daniel daniel    71 abr 26 16:07 intxt
- 4 -rw-rw-r-- 1 daniel daniel   828 abr 26 22:23 Makefile
- 0 -rw-r--r-- 1 daniel daniel     0 abr 26 22:24 outxt
-24 -rwxrwxr-x 1 daniel daniel 23200 abr 26 22:23 pipex
- 4 drwxrwxr-x 4 daniel daniel  4096 abr 26 22:09 src
+total 72
+drwxr-xr-x  14 dexposit  2019    476 27 abr 17:31 .
+drwxr-xr-x   3 dexposit  2019    102 12 abr 16:31 ..
+drwxr-xr-x  16 dexposit  2019    544 27 abr 17:13 .git
+-rw-r--r--   1 dexposit  2019     58 22 abr 19:44 .gitignore
+-rw-r--r--   1 dexposit  2019     82 12 abr 16:31 .gitmodules
+-rw-r--r--   1 dexposit  2019    804 27 abr 17:17 Makefile
+drwxr-xr-x  15 dexposit  2019    510 25 abr 18:17 PIPEX_TESTER
+drwxr-xr-x   4 dexposit  2019    136 27 abr 17:20 inc
+-rw-r--r--   1 dexposit  2019     71 27 abr 17:13 intxt
+-rw-r--r--   1 dexposit  2019      0 27 abr 17:31 outxt
+-rwxr-xr-x   1 dexposit  2019  18840 27 abr 17:30 pipex
+drwxr-xr-x  14 dexposit  2019    476 22 abr 16:21 pipex-tester
+drwxr-xr-x   9 dexposit  2019    306 22 abr 16:30 pipex_tester_42
+drwxr-xr-x   7 dexposit  2019    238 27 abr 17:13 src

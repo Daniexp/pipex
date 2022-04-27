@@ -6,7 +6,7 @@
 /*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:36:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/26 22:00:51 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/27 17:19:37 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	**save_cmds(int argc, char **argv);
 char	*join_str(char *start, char *mid, char *end);
 void	change_in_out_cmd(int *fin, int *fout);
 void	rute_absolute(char **envp, char *cmd);
+/*		exec_utils.c			*/
+void	check_exec(char **envp, char *cmd);
 /*		pipex.c					*/
 void	pipex(t_var *arg, char **envp, t_pipe *pipant);
 void	close_unused(t_var *var, t_pipe *pip1, t_pipe *pip2);
