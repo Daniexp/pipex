@@ -6,11 +6,11 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/27 17:55:30 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/27 20:09:06 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include <pipex.h>
 
 /*
 	CAMBIOS A EFECTUAR PARA REALIZAR BONUS

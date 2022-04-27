@@ -6,11 +6,11 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:01:37 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/27 17:56:22 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/27 20:08:54 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include <pipex.h>
 
 /*
 	si heredoc hay que saltar el mitador en la llamada de save commands y no se

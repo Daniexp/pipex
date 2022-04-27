@@ -6,11 +6,11 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:47:53 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/27 17:56:42 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/27 20:08:30 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include <pipex.h>
 
 void	check_exec(char **envp, char *cmd)
 {
