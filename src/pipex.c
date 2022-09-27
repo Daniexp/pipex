@@ -3,81 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dexposit <dexposit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:11:25 by dexposit          #+#    #+#             */
-/*   Updated: 2022/04/15 17:24:41 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/04/27 21:21:48 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
-void	leaks()
-{
-	system("leaks -q pipex");
-}
+#include <pipex.h>
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_var	var;
 
-	atexit(leaks);
-	if (parse_command_line(argc, argv) < 0)
-		return (0);
-	//exec_cmd("pwd", envp);
-//	take_cmd_path_of_env((const char **) envp);
-	initialize_struct_pipe(argv, &var);
-	pipex(&var, envp);
+	if (argc < 4)
+	{
+		perror("./pipex infile cmd ... cmd outfile\n");
+		exit(EXIT_FAILURE);
+	}
+	check_heredoc(argc, argv, &var);
+	pipex(&var, envp, 0);
 }
 
-void	pipex(t_var *arg, char **envp)
+void	pipex(t_var *arg, char **envp, t_pipe *pipant)
 {
-	t_pipe pip;
+	static int	calls = 0;
+	int			cnt;
+	t_pipe		pipsig;
 
-	pipe(pip.end);
-	pip.id = fork();
-	if (pip.id < 0)
-		return (perror("It wasn't possible to do fork.\n"), exit(EXIT_FAILURE));
-	if (!pip.id)
-		child_process(arg->f1, arg->cmd1, &pip, envp);
+	cnt = arg->nmb_cmd - ++calls;
+	pipe(pipsig.end);
+	if (cnt == 0)
+		change_in_out_cmd(&(arg->fin), &(pipant->end[1]));
 	else
-		parent_process(arg->f2, arg->cmd2, &pip, envp);
+	{
+		pipsig.id = fork();
+		if (pipsig.id < 0)
+			return (perror("fork fail... \n"), exit(EXIT_FAILURE));
+		if (pipsig.id == 0)
+			pipex(arg, envp, &pipsig);
+		else if (cnt == arg->nmb_cmd - 1)
+			change_in_out_cmd(&(pipsig.end[0]), &(arg->fout));
+		else
+			change_in_out_cmd(&(pipsig.end[0]), &(pipant->end[1]));
+	}
+	close_unused(arg, &pipsig, pipant);
+	check_exec(envp, arg->cmd[cnt]);
+	free_doublestr(arg->cmd);
 }
 
-void	child_process(int fd, char *cmd, t_pipe *pip, char **envp)
+void	close_unused(t_var *var, t_pipe *pip1, t_pipe *pip2)
 {
-	printf("EStamos en el proceso hijo que creamos con fork\n");
-	//Estes proceso va a tener el fd como entrada y salida la salida
-	//del primer commando
-	if (dup2(fd, STDIN_FILENO) < 0)
-		return(perror("Couldn't dup child stdin.\n"), exit(EXIT_FAILURE)); 
-	if (dup2(pip->end[1], STDOUT_FILENO) < 0)
-		return(perror("Couldn't dup child stdout.\n"), exit(EXIT_FAILURE));
-	if (close(pip->end[0]) != 0)
-		return(perror("Couldn't close read extreme of the pipe.\n"), exit(EXIT_FAILURE));
-	close(fd);
-	exec_cmd(cmd, envp);
-	//execve(path, cmd_split, envp);
-	exit(EXIT_FAILURE);
-}
-
-void	parent_process(int fd, char *cmd, t_pipe *pip, char **envp)
-{
-	int	status;
-
-	waitpid(pip->id, &status, 0);
-	printf("EStamos en el procesa padre\n");
-	//wait(&status);
-	//Este proceso va a tener como entrada de lectuor la salida del pipe y
-	//como salida el segundo fichero introducido por argumentos
-	if (dup2(fd, STDOUT_FILENO) < 0)
-		return(perror("Can't dup parent stdout.\n"), exit(EXIT_FAILURE));
-	if (dup2(pip->end[0], STDIN_FILENO) < 0)
-		return(perror("Can't dup parent stdin.\n"), exit(EXIT_FAILURE));
-	if (close(pip->end[1] != 0))
-		return(perror("Error: can't close write pipe side.\n"), exit(EXIT_FAILURE));
-	close(fd);
-	exec_cmd(cmd, envp);
-	//execve();
-	exit(EXIT_FAILURE);
+	if (pip2 != 0)
+	{
+		close(pip2->end[0]);
+		close(pip2->end[1]);
+	}
+	close(var->fin);
+	close(var->fout);
+	close(pip1->end[0]);
+	close(pip1->end[1]);
 }
 
 void	exec_cmd(char *cmd, char **envp)
@@ -87,18 +72,34 @@ void	exec_cmd(char *cmd, char **envp)
 	char	**split_cmd;
 	int		i;
 
-	env_path = take_cmd_path_of_env((const char **) envp);
 	split_cmd = ft_split(cmd, ' ');
+	rute_absolute(envp, cmd);
+	if (*envp == NULL)
+		return (perror("command not found"), exit(EXIT_FAILURE));
+	env_path = take_cmd_path_of_env((const char **) envp);
 	i = -1;
 	while (env_path[++i])
 	{
 		path_cmd = join_str(env_path[i], "/", split_cmd[0]);
-		//cat path_cmd + / + split_cmd[0]
-		execve(path_cmd, split_cmd, envp);
-		perror("No se pudo execve");
+		if (access(path_cmd, X_OK) == 0)
+			execve(path_cmd, split_cmd, envp);
 		free(path_cmd);
 	}
-	free(split_cmd);
-	free(env_path);
+	free_doublestr(split_cmd);
+	free_doublestr(env_path);
+	perror("command not found");
 	exit(EXIT_FAILURE);
+}
+
+void	free_doublestr(char **str)
+{
+	char	**aux;
+
+	aux = str;
+	while (*str)
+	{
+		free(*str);
+		str++;
+	}
+	free(aux);
 }
